@@ -3,16 +3,16 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'mvn clean package'  // For Windows (use `sh` for Linux)
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Test') {
+        stage('Test') { 
             steps {
-                bat 'mvn test'          // Runs tests and generates JUnit reports
+                sh 'mvn test' 
             }
             post {
                 always {
-                    junit 'target/surefire-reports/**/*.xml'  // Path to test reports
+                    junit 'target/surefire-reports/*.xml' 
                 }
             }
         }
